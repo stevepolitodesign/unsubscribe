@@ -1,8 +1,8 @@
 # Unsubscribe
-Short description and motivation.
+Automatically unsubscribe from emails in Rails. 
 
 ## Usage
-How to use my plugin.
+TODO
 
 ## Installation
 Add this line to your application's Gemfile:
