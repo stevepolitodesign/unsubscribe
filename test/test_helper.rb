@@ -14,3 +14,16 @@ if ActiveSupport::TestCase.respond_to?(:fixture_path=)
   ActiveSupport::TestCase.file_fixture_path = ActiveSupport::TestCase.fixture_path + "/files"
   ActiveSupport::TestCase.fixtures :all
 end
+
+class ActiveSupport::TestCase
+  setup do
+    clear_default_values
+  end
+
+  def clear_default_values
+    Unsubscribe.setup do |config|
+      config.mailers = Unsubscribe::DEFAULT_MAILER_VALUE
+      config.subscription_strategy = Unsubscribe::DEFAULT_SUBSCRIPTION_STRATEGY_VALUE
+    end
+  end
+end
