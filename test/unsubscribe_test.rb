@@ -14,9 +14,13 @@ class UnsubscribeTest < ActiveSupport::TestCase
     assert Unsubscribe.respond_to?(:mailers=)
   end
 
-  test "mailer should be an array" do
-    assert_raises(Unsubscribe::Error) do
-      Unsubscribe.mailers= "some_string"
-    end
+  test "default subscription_strategy is opt_out" do
+    assert_equal [], Unsubscribe.mailers
   end
+
+  test "can set subscription_strategy" do
+    assert Unsubscribe.respond_to?(:subscription_strategy)
+    assert Unsubscribe.respond_to?(:subscription_strategy=)
+  end  
+
 end
