@@ -15,7 +15,7 @@ class UnsubscribeTest < ActiveSupport::TestCase
   end
 
   test "default subscription_strategy is opt_out" do
-    assert_equal [], Unsubscribe.mailers
+    assert_equal :opt_out, Unsubscribe.subscription_strategy
   end
 
   test "can set subscription_strategy" do
