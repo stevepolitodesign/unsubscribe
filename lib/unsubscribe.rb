@@ -15,4 +15,8 @@ module Unsubscribe
   # TODO: Raise an exception value is anything other than :opt_in or :opt_out
   mattr_accessor :subscription_strategy
   @@subscription_strategy = :opt_out
+
+  def self.setup
+    yield self
+  end
 end

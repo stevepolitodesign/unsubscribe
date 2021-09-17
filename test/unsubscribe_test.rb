@@ -21,6 +21,10 @@ class UnsubscribeTest < ActiveSupport::TestCase
   test "can set subscription_strategy" do
     assert Unsubscribe.respond_to?(:subscription_strategy)
     assert Unsubscribe.respond_to?(:subscription_strategy=)
-  end  
+  end
+
+  test "can be configured" do
+    assert Unsubscribe.respond_to?(:setup)
+  end
 
 end
