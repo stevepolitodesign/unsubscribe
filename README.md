@@ -2,7 +2,15 @@
 Automatically unsubscribe from emails in Rails. 
 
 ## Usage
-TODO
+```ruby
+Unsubscribe.setup do |config|
+  # Must be an array of Mailer Classes
+  config.mailers = ["MarketingMailer"]
+
+  # Must be :opt_in or :opt_out
+  config.subscription_strategy = :opt_in
+end
+```
 
 ## Installation
 Add this line to your application's Gemfile:
