@@ -42,5 +42,30 @@ module Unsubscribe
       flunk
     end
 
+    test "should return details" do
+      flunk
+    end
+
+    test "should return name" do
+      flunk
+    end
+
+    test "should return description" do
+      flunk
+    end
+
+    test "should return action" do
+      flunk
+    end
+
+    test "should return call_to_action" do
+      flunk
+    end
+
+    # TODO: Test this it's a hash with keys of class, name and description
+    test "should raise exception if Unsubscribe::SETTINGS.mailers is not properly formatted" do
+      flunk
+    end
+
   end
 end
