@@ -10,6 +10,6 @@ class CreateUnsubscribeMailerSubscriptions < ActiveRecord::Migration[6.1]
     end
 
     # An owner should only have one Unsubscribe::MailerSubscription record per Mailer.
-    add_index :unsubscribe_mailer_subscriptions, [:owner_id, :owner_type, :mailer], unique: true, name: unsubscribe_owner_index
+    add_index :unsubscribe_mailer_subscriptions, [:owner_id, :owner_type, :mailer], unique: true, name: :unsubscribe_owner_index
   end
 end
