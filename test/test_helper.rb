@@ -20,10 +20,14 @@ class ActiveSupport::TestCase
     set_default_values
   end
 
+  teardown do
+    set_default_values
+  end
+
   def set_default_values
     Unsubscribe.setup do |config|
-      config.mailers = Unsubscribe::DEFAULT_MAILER_VALUE
-      config.subscription_strategy = Unsubscribe::DEFAULT_SUBSCRIPTION_STRATEGY_VALUE
+      config.mailers = Unsubscribe::SETTINGS.mailers
+      config.subscription_strategy = Unsubscribe::SETTINGS.subscription_strategy
     end
   end
 end

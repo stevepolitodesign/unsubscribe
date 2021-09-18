@@ -2,9 +2,13 @@ require "unsubscribe/version"
 require "unsubscribe/engine"
 
 module Unsubscribe
+
   # TODO: Make this a separate file
-  DEFAULT_MAILER_VALUE = [].freeze
-  DEFAULT_SUBSCRIPTION_STRATEGY_VALUE = :opt_out
+  SETTINGS = OpenStruct.new(
+    mailers: [],
+    subscription_strategy: :opt_out
+  ).freeze
+
   SUBSCRIPTION_STRATEGIES = %i(opt_in opt_out).freeze
 
   # TODO: Make this a separate file
@@ -26,11 +30,11 @@ module Unsubscribe
   # TODO: Raise an exception if the Mailer does not exist
   # raise Unsubscribe::Error "mailers should be an array" unless Unsubscribe.mailers.class == Array
   mattr_accessor :mailers
-  @@mailers = DEFAULT_MAILER_VALUE
+  @@mailers = SETTINGS.mailers
   
   # TODO: Raise an exception value is anything other than :opt_in or :opt_out
   mattr_accessor :subscription_strategy
-  @@subscription_strategy = DEFAULT_SUBSCRIPTION_STRATEGY_VALUE
+  @@subscription_strategy = SETTINGS.subscription_strategy
 
   def self.setup
     yield self
