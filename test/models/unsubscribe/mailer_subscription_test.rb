@@ -3,7 +3,8 @@ require "test_helper"
 module Unsubscribe
   class MailerSubscriptionTest < ActiveSupport::TestCase
     setup do
-      @mailer_subscription = MailerSubscription.new(mailer: "MarketingMailer")
+      @owner = users(:one)
+      @mailer_subscription = @owner.mailer_subscriptions.new(mailer: "MarketingMailer")
     end
 
     test "should be valid" do
@@ -34,6 +35,10 @@ module Unsubscribe
     end
 
     test "should raise exception if Unsubscribe.mailers is not an array" do
+      flunk
+    end
+
+    test "should be deleted when owner is deleted" do
       flunk
     end
 
