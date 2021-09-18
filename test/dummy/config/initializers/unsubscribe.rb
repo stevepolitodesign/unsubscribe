@@ -1,3 +1,9 @@
 Unsubscribe.setup do |config| 
-  config.mailers = ["MarketingMailer"]
+  config.mailers = [
+    {
+      class: "MarketingMailer",
+      name: "Marketing Emails",
+      description: "Updates on promotions and sales."
+    },
+  ]
 end
