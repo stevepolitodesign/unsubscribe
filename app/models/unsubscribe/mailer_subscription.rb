@@ -1,6 +1,6 @@
 module Unsubscribe
   class MailerSubscription < ApplicationRecord
-    INCLUDED_MAILERS = Unsubscribe::SETTINGS.mailers.map{ |mailer| mailer[:class] }.freeze
+    INCLUDED_MAILERS = Unsubscribe.mailers.map{ |mailer| mailer[:class] }.freeze
 
     belongs_to :owner, polymorphic: true
 
@@ -12,7 +12,7 @@ module Unsubscribe
     validates :owner_id, uniqueness: { scope: [:mailer, :owner_type] }
 
     def self.has_configured_mailers?
-      Unsubscribe::SETTINGS.mailers.present? && Unsubscribe::SETTINGS.mailers.map{ |mailer| mailer[:class] }.present?
+      Unsubscribe.mailers.present? && Unsubscribe.mailers.map{ |mailer| mailer[:class] }.present?
     end
 
     private

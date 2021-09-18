@@ -6,7 +6,7 @@ module Unsubscribe
       Unsubscribe.mailers = [{
         class: "MarketingMailer",
         name: "Marketing Emails",
-        description: "Updates on promotions and sales."        
+        description: "Updates on promotions and sales."
       }]
       @owner = users(:two)
       @mailer_subscription = @owner.mailer_subscriptions.new(mailer: "MarketingMailer")
@@ -19,7 +19,7 @@ module Unsubscribe
     test "should be unique across owner and mailer" do
       @mailer_subscription.save!
       @duplicate_mailer_subscription = @owner.mailer_subscriptions.new(mailer: "MarketingMailer")
-      assert_not @mailer_subscription.valid?
+      assert_not @duplicate_mailer_subscription.valid?
     end
 
     test "should have a mailer" do
@@ -36,32 +36,39 @@ module Unsubscribe
     end
 
     test "should be deleted when owner is deleted" do
-      flunk
+      @mailer_subscription.save!
+      assert_difference("Unsubscribe::MailerSubscription.count", -1) do
+        @mailer_subscription.owner.destroy!
+      end
     end
 
     test "should return details" do
-      flunk
-    end
+      assert_equal Unsubscribe.mailers[0], @mailer_subscription.details
+    end    
 
     test "should return name" do
-      flunk
+      assert_equal "Marketing Emails", @mailer_subscription.name
     end
 
     test "should return description" do
-      flunk
+      assert_equal "Updates on promotions and sales.", @mailer_subscription.description
     end
 
     test "should return action" do
-      flunk
+      assert_equal "Subscribe to", @mailer_subscription.action
+      @mailer_subscription.subscription = true
+      assert_equal "Unsubscribe from", @mailer_subscription.action
     end
 
     test "should return call_to_action" do
-      flunk
+      assert_equal "Subscribe to Marketing Emails", @mailer_subscription.call_to_action
     end
 
-    # TODO: Test this it's a hash with keys of class, name and description
-    test "should raise exception if Unsubscribe::SETTINGS.mailers is not properly formatted" do
-      flunk
+    test "should raise exception if Unsubscribe.mailers is empty" do
+      Unsubscribe.mailers = nil
+      assert_raises(Unsubscribe::Error) do
+        @mailer_subscription.valid?
+      end
     end
 
   end
