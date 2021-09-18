@@ -3,7 +3,12 @@ require "test_helper"
 module Unsubscribe
   class MailerSubscriptionTest < ActiveSupport::TestCase
     setup do
-      @owner = users(:one)
+      Unsubscribe.mailers = [{
+        class: "MarketingMailer",
+        name: "Marketing Emails",
+        description: "Updates on promotions and sales."        
+      }]
+      @owner = users(:two)
       @mailer_subscription = @owner.mailer_subscriptions.new(mailer: "MarketingMailer")
     end
 
@@ -12,7 +17,9 @@ module Unsubscribe
     end
 
     test "should be unique across owner and mailer" do
-      flunk
+      @mailer_subscription.save!
+      @duplicate_mailer_subscription = @owner.mailer_subscriptions.new(mailer: "MarketingMailer")
+      assert_not @mailer_subscription.valid?
     end
 
     test "should have a mailer" do
@@ -21,21 +28,11 @@ module Unsubscribe
     end
 
     test "mailer should be in list" do
-      valid_mailers = Unsubscribe.mailers = ["MarketingMailer"]
-      valid_mailers.each do |valid_mailer|
-        @mailer_subscription.mailer = valid_mailer
-        assert @mailer_subscription.valid?
-      end
-
       invalid_mailers = %w(Foo Bar Baz)
       invalid_mailers.each do |invalid_mailer|
         @mailer_subscription.mailer = invalid_mailer
         assert_not @mailer_subscription.valid?
       end
-    end
-
-    test "should raise exception if Unsubscribe.mailers is not an array" do
-      flunk
     end
 
     test "should be deleted when owner is deleted" do
