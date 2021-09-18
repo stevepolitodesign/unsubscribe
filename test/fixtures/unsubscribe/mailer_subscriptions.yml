@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  owner: one
+  subscribed: false
+  mailer: MyString
+
+two:
+  owner: two
+  subscribed: false
+  mailer: MyString
