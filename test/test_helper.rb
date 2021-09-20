@@ -26,7 +26,6 @@ class ActiveSupport::TestCase
 
   def set_default_values
     Unsubscribe.setup do |config|
-      config.mailers = Unsubscribe::SETTINGS.mailers
       config.subscription_strategy = Unsubscribe::SETTINGS.subscription_strategy
     end
   end
