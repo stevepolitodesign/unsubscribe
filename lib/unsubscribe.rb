@@ -19,7 +19,7 @@ module Unsubscribe
     extend ActiveSupport::Concern
 
     included do
-      has_many :mailer_subscriptions, class_name: "Unsubscribe::MailerSubscription", as: :owner, inverse_of: :owner
+      has_many :mailer_subscriptions, class_name: "Unsubscribe::MailerSubscription", as: :owner, inverse_of: :owner, dependent: :destroy
     end
   end
 
