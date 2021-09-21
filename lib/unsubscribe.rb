@@ -14,6 +14,17 @@ module Unsubscribe
   class Error < StandardError
   end
 
+  # TODO: Make this a separate file
+  module Mailer
+    extend ActiveSupport::Concern
+
+    class_methods do
+      def unsubscribe_settings(enabled: true, name: nil, description: nil)
+        cattr_accessor :unsubscribe_settings, default: { enabled: enabled, name: name, description: description }
+      end
+    end
+  end
+
   # TODO: Make this a separate file 
   module Owner
     extend ActiveSupport::Concern

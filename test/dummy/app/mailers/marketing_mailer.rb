@@ -1,5 +1,7 @@
 class MarketingMailer < ApplicationMailer  
-  unsubscribe_settings enabled: true, name: "Marketing Mailer", description: "Updates on promotions and sales."
+  include Unsubscribe::Mailer
+
+  unsubscribe_settings name: "Marketing Mailer", description: "Updates on promotions and sales."
 
   # Subject can be set in your I18n file at config/locales/en.yml
   # with the following lookup:
