@@ -19,8 +19,8 @@ module Unsubscribe
     extend ActiveSupport::Concern
 
     class_methods do
-      def unsubscribe_settings(enabled: true, name: nil, description: nil)
-        cattr_accessor :unsubscribe_settings, default: { enabled: enabled, name: name, description: description }
+      def unsubscribe_settings(name: nil, description: nil)
+        cattr_accessor :unsubscribe_settings, default: { enabled: true, name: name, description: description }
       end
     end
   end
