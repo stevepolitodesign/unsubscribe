@@ -5,15 +5,6 @@ class UnsubscribeTest < ActiveSupport::TestCase
     assert Unsubscribe::VERSION
   end
 
-  test "default mailers is an empty array" do
-    assert_equal [], Unsubscribe.mailers
-  end
-
-  test "can set mailers" do
-    assert Unsubscribe.respond_to?(:mailers)
-    assert Unsubscribe.respond_to?(:mailers=)
-  end
-
   test "default subscription_strategy is opt_out" do
     assert_equal :opt_out, Unsubscribe.subscription_strategy
   end

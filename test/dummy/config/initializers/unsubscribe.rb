@@ -1,3 +1,2 @@
-Unsubscribe.setup do |config| 
-  config.mailers = ["MarketingMailer"]
+Unsubscribe.setup do |config|
 end

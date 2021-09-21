@@ -1,0 +1,5 @@
+one:
+  email: $LABEL@example.com
+
+two:
+  email: $LABEL@example.com  
