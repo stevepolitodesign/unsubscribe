@@ -11,6 +11,16 @@ module Unsubscribe
       assert @mailer_subscription.valid?
     end
 
+    test "mailer should be enabled" do
+      @mailer_subscription.mailer = "Security"
+      assert_not @mailer_subscription.valid?
+    end
+
+    test "mailer should exist" do
+      @mailer_subscription.mailer = "SomeFakeMailer"
+      assert_not @mailer_subscription.valid?
+    end    
+
     test "should be unique across owner and mailer" do
       @mailer_subscription.save!
       @duplicate_mailer_subscription = @owner.mailer_subscriptions.new(mailer: "MarketingMailer")
