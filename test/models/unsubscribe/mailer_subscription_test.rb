@@ -29,6 +29,24 @@ module Unsubscribe
       end
     end
 
+    test "should return details" do
+      assert_kind_of Hash, @mailer_subscription.details
+    end
+
+    test "should raise exception if mailer does not exist" do
+      @mailer_subscription.mailer = "SomeFakeMailer"
+      assert_raises(Unsubscribe::Error) do
+        @mailer_subscription.details
+      end
+    end
+
+    test "should raise exception if mailer does not respond to unsubscribe_settings" do
+      @mailer_subscription.mailer = "Security"  
+      assert_raises(Unsubscribe::Error) do
+        @mailer_subscription.details
+      end
+    end    
+
     test "should return name" do
       assert_equal "Marketing Emails", @mailer_subscription.name
     end
@@ -39,7 +57,7 @@ module Unsubscribe
 
     test "should return action" do
       assert_equal "Subscribe to", @mailer_subscription.action
-      @mailer_subscription.subscription = true
+      @mailer_subscription.subscribed = true
       assert_equal "Unsubscribe from", @mailer_subscription.action
     end
 
