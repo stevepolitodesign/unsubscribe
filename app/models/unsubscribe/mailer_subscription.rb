@@ -7,6 +7,7 @@ module Unsubscribe
     validates :owner_id, uniqueness: { scope: [:mailer, :owner_type] }
     validate :mailer_should_exist
 
+    # TODO: Add i18n
     def action
       subscribed? ? "Unsubscribe from" : "Subscribe to"
     end
