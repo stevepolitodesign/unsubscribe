@@ -7,8 +7,16 @@ module Unsubscribe
     validates :owner_id, uniqueness: { scope: [:mailer, :owner_type] }
 
     def name
-      binding.irb
-      
+      details[:name]
     end
+
+    def details
+      begin
+        mailer.constantize.unsubscribe_settings
+      rescue NoMethodError
+        raise Unsubscribe::Error, "Make sure to include Unsubscribe::Mailer in #{mailer}"
+      end
+    end
+
   end
 end
