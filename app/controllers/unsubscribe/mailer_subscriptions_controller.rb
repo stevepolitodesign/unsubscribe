@@ -13,9 +13,9 @@ module Unsubscribe
 
       # TODO: redirect_to :show if @owner != @mailer.owner
       if @mailer.save
-        redirect_to :show, notice: "Settings updated."
+        redirect_to mailer_subscription_path(@owner.to_sgid(for: :mailer_subscription), mailer: params[:mailer_subscription][:mailer]), notice: "Settings updated."
       else
-        redirect_to :show, alert: @mailer.errors.full_messages.to_sentence
+        redirect_to mailer_subscription_path(@owner.to_sgid(for: :mailer_subscription), mailer: params[:mailer_subscription][:mailer]), alert: @mailer.errors.full_messages.to_sentence
       end
     end
 

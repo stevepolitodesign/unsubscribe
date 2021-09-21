@@ -15,10 +15,17 @@ module Unsubscribe
 
     test "should create" do
       assert_difference("Unsubscribe::MailerSubscription.count", 1) do
-        post mailer_subscriptions_path, params: { id: @user.to_sgid(for: :mailer_subscription), mailer_subscription: { owner_id: @user.id } }
+        post mailer_subscriptions_path, params: 
+          { 
+            id: @user.to_sgid(for: :mailer_subscription),
+            mailer_subscription: { 
+              owner_id: @user.id,
+              owner_type: "User",
+              subscribed: false,
+              mailer: "MarketingMailer"
+            }
+          }
       end
-      
-      assert_not @user.mailer_subscriptions.last.subscribed? 
     end   
 
     test "should update" do
@@ -28,5 +35,9 @@ module Unsubscribe
     test "should handle bad token" do
       flunk
     end
+
+    test "should handle unauthorized" do
+      flunk
+    end    
   end
 end
