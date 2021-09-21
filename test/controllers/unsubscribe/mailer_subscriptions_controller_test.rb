@@ -4,6 +4,10 @@ module Unsubscribe
   class MailerSubscriptionsControllerTest < ActionDispatch::IntegrationTest
     include Engine.routes.url_helpers
 
+    test "should get" do
+      flunk
+    end
+
     test "should create" do
       flunk
     end
