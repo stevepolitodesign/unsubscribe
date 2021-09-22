@@ -13,7 +13,7 @@ module Unsubscribe
     test "should prevent delivery" do
       assert_no_emails do
         MarketingMailer.with(
-          user: @user,
+          recipient: @user,
         ).promotion.deliver_now
       end
   
@@ -21,7 +21,7 @@ module Unsubscribe
   
       assert_emails 1 do
         MarketingMailer.with(
-          user: @user,
+          recipient: @user,
         ).promotion.deliver_now
       end    
     end
