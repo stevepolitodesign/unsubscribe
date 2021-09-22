@@ -11,6 +11,6 @@ class MarketingMailer < ApplicationMailer
   def promotion
     @greeting = "Hi"
 
-    mail to: @user.email
+    mail to: @recipient.email
   end
 end
