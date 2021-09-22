@@ -5,7 +5,7 @@ module Unsubscribe
 
   # TODO: Make this a separate file
   SETTINGS = OpenStruct.new(
-    subscription_strategy: :opt_out
+    subscription_strategy: :opt_out,
   ).freeze
 
   # TODO: Make this a separate file
@@ -33,19 +33,23 @@ module Unsubscribe
 
     def subscribed_to_mailer?(mailer)
       case Unsubscribe.subscription_strategy
-      when :opt_out
-        Unsubscribe::MailerSubscription.find_by(
-          owner: self,
-          mailer: mailer,
-          subscribed: false
-        ).nil?
       when :opt_in
         Unsubscribe::MailerSubscription.find_by(
           owner: self,
           mailer: mailer,
           subscribed: true
         ).present?
+      else
+        Unsubscribe::MailerSubscription.find_by(
+          owner: self,
+          mailer: mailer,
+          subscribed: false
+        ).nil?
       end
+    end
+
+    def to_sgid_for_mailer_subscription
+      self.to_sgid(for: :mailer_subscription)
     end
   end
 

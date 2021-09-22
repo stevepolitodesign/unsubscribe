@@ -5,7 +5,9 @@ module Unsubscribe
     validates :subscribed, inclusion: [true, false], allow_nil: true
     validates :mailer, presence: true
     validates :owner_id, uniqueness: { scope: [:mailer, :owner_type] }
+    validate :mailer_should_exist
 
+    # TODO: Add i18n
     def action
       subscribed? ? "Unsubscribe from" : "Subscribe to"
     end
@@ -25,10 +27,18 @@ module Unsubscribe
     def details
       begin
         mailer.constantize.unsubscribe_settings
-      rescue NameError
-        raise Unsubscribe::Error, "#{mailer} is not a Mailer."
       rescue NoMethodError
         raise Unsubscribe::Error, "Make sure to include Unsubscribe::Mailer in #{mailer}"
+      end
+    end
+    
+    private
+
+    def mailer_should_exist
+      begin
+        errors.add(:mailer, "is not a enbled") unless mailer.constantize.unsubscribe_settings[:enabled]
+      rescue NameError
+        errors.add(:mailer, "is not a Mailer")
       end
     end
 

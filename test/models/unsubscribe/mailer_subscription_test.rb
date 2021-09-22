@@ -11,6 +11,16 @@ module Unsubscribe
       assert @mailer_subscription.valid?
     end
 
+    test "mailer should be enabled" do
+      @mailer_subscription.mailer = "SecurityMailer"
+      assert_not @mailer_subscription.valid?
+    end
+
+    test "mailer should exist" do
+      @mailer_subscription.mailer = "SomeFakeMailer"
+      assert_not @mailer_subscription.valid?
+    end    
+
     test "should be unique across owner and mailer" do
       @mailer_subscription.save!
       @duplicate_mailer_subscription = @owner.mailer_subscriptions.new(mailer: "MarketingMailer")
@@ -33,15 +43,8 @@ module Unsubscribe
       assert_kind_of Hash, @mailer_subscription.details
     end
 
-    test "should raise exception if mailer does not exist" do
-      @mailer_subscription.mailer = "SomeFakeMailer"
-      assert_raises(Unsubscribe::Error) do
-        @mailer_subscription.details
-      end
-    end
-
     test "should raise exception if mailer does not respond to unsubscribe_settings" do
-      @mailer_subscription.mailer = "Security"  
+      @mailer_subscription.mailer = "SecurityMailer"  
       assert_raises(Unsubscribe::Error) do
         @mailer_subscription.details
       end
