@@ -22,4 +22,4 @@ jobs:
       - name: Create database
         run: bundle exec rails db:setup        
       - name: Run tests
-        run: bundle exec rake
+        run: bundle exec rails test
