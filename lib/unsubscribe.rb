@@ -47,6 +47,10 @@ module Unsubscribe
         ).nil?
       end
     end
+
+    def to_sgid_for_mailer_subscription
+      self.to_sgid(for: :mailer_subscription)
+    end
   end
 
   mattr_accessor :subscription_strategy

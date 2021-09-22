@@ -2,7 +2,7 @@ require_dependency "unsubscribe/application_controller"
 
 module Unsubscribe
   class MailerSubscriptionsController < ApplicationController
-    before_action :set_owner, only: [:show, :create]
+    before_action :set_owner, only: [:show, :create, :update]
     before_action :set_mailer, only: [:show]
 
     def show
@@ -11,11 +11,40 @@ module Unsubscribe
     def create
       @mailer = Unsubscribe::MailerSubscription.new(mailer_subscription_params)
 
-      # TODO: redirect_to :show if @owner != @mailer.owner
+      if @owner != @mailer.owner
+        redirect_to(
+          mailer_subscription_path(@owner.to_sgid_for_mailer_subscription, mailer: params[:mailer_subscription][:mailer]),
+          alert: "You are not authorized to perform this action." 
+        ) and return
+      end
+
       if @mailer.save
-        redirect_to mailer_subscription_path(@owner.to_sgid(for: :mailer_subscription), mailer: params[:mailer_subscription][:mailer]), notice: "Settings updated."
+        redirect_to(
+          mailer_subscription_path(@owner.to_sgid_for_mailer_subscription, mailer: params[:mailer_subscription][:mailer]),
+          notice: "Settings updated."
+        )
       else
-        redirect_to mailer_subscription_path(@owner.to_sgid(for: :mailer_subscription), mailer: params[:mailer_subscription][:mailer]), alert: @mailer.errors.full_messages.to_sentence
+        redirect_to(
+          mailer_subscription_path(@owner.to_sgid_for_mailer_subscription, mailer: params[:mailer_subscription][:mailer]),
+          alert: @mailer.errors.full_messages.to_sentence
+        )
+      end
+    end
+
+    def update
+      @mailer = Unsubscribe::MailerSubscription.find(params[:mailer_subscription_id])
+
+      if @owner != @mailer.owner
+        redirect_to(
+          mailer_subscription_path(@owner.to_sgid_for_mailer_subscription, mailer: @mailer.mailer),
+          alert: "You are not authorized to perform this action." 
+        ) and return
+      end
+
+      if @mailer.toggle!(:subscribed)
+        redirect_to mailer_subscription_path(@owner.to_sgid_for_mailer_subscription, mailer: @mailer.mailer), notice: "Settings updated."
+      else
+        redirect_to mailer_subscription_path(@owner.to_sgid_for_mailer_subscription, mailer: @mailer.mailer), alert: @mailer.errors.full_messages.to_sentence
       end
     end
 
@@ -23,6 +52,7 @@ module Unsubscribe
 
     def set_owner
       @owner = GlobalID::Locator.locate_signed(params[:id], for: :mailer_subscription)
+      raise ActiveRecord::RecordNotFound if @owner.nil?
     end
 
     def set_mailer
