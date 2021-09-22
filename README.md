@@ -10,14 +10,24 @@ class User < ApplicationRecord
 end
 ```
 
+1. Add `include Unsubscribe::Owner` to a `Model`. The `Model` must have an `email` column.
+
 ```ruby
 class MarketingMailer < ApplicationMailer  
   include Unsubscribe::Mailer
 
   unsubscribe_settings name: "Marketing Emails", description: "Updates on promotions and sales."
+
+  def promotion
+    mail to: @recipient.email
+  end  
 end
 ```
-
+ 
+2. Add `include Unsubscribe::Mailer` to a `Mailer`.
+3. Call `unsubscribe_settings` and optionally set a `name` and `description`.
+4. Set `mail to:` to `@recipient.email`
+  - The `@recipient` is an instance of whatever Class `include Unsubscribe::Owner` was added to.
 
 ## Configuration
 
