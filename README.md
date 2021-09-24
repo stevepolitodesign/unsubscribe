@@ -42,6 +42,8 @@ end
 <%= link_to "Unsubscribe", @unsubscribe_url %>
 ```
 
+7. Optionally run `rails g unsubscribe:views` if you want to modify the existing templates.
+
 ## Installation
 
 Add this line to your application's Gemfile:
