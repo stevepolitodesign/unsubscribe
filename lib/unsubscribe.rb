@@ -14,6 +14,7 @@ module Unsubscribe
     included do
       before_action :set_recipient
       before_action :set_unsubscribe_url, if: :should_unsubscribe?
+      before_action :set_headers, if: :should_unsubscribe?
       after_action :prevent_delivery_if_recipient_opted_out, if: :should_unsubscribe?
     end
 
@@ -41,6 +42,10 @@ module Unsubscribe
   
     def should_unsubscribe?
       @recipient.present? && @recipient.respond_to?(:subscribed_to_mailer?)
+    end
+    
+    def set_headers
+      headers["List-Unsubscribe"] = "<#{@unsubscribe_url}>"
     end
 
   end
