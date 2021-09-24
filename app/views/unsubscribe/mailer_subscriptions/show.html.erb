@@ -1,2 +1,26 @@
 <h1><%= @mailer.name %></h1>
 <p><%= @mailer.description %></p>
+<% if @mailer.new_record? %>
+  <%= button_to(
+    @mailer.call_to_action,
+    mailer_subscriptions_path,
+    params: { 
+      id: @owner.to_sgid_for_mailer_subscription,
+      mailer_subscription: {
+        owner_id: @owner.id,
+        owner_type: @owner.class,
+        subscribed: false,
+        mailer: @mailer.mailer
+      }
+    }
+  ) %>
+<% else %>
+  <%= button_to(
+    @mailer.call_to_action,
+    mailer_subscription_path(@owner.to_sgid_for_mailer_subscription),
+    method: :put,
+    params: { 
+      mailer_subscription_id: @mailer.id
+    }
+  ) %>
+<% end %>

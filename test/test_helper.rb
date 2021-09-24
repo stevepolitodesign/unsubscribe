@@ -14,20 +14,3 @@ if ActiveSupport::TestCase.respond_to?(:fixture_path=)
   ActiveSupport::TestCase.file_fixture_path = ActiveSupport::TestCase.fixture_path + "/files"
   ActiveSupport::TestCase.fixtures :all
 end
-
-class ActiveSupport::TestCase
-  setup do
-    set_default_values
-  end
-
-  teardown do
-    set_default_values
-  end
-
-  def set_default_values
-    Unsubscribe.setup do |config|
-      # TODO: Use :opt_out
-      config.subscription_strategy = Unsubscribe::SETTINGS.subscription_strategy
-    end
-  end
-end

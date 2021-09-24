@@ -9,9 +9,7 @@ module Unsubscribe
       MailerSubscription.destroy_all
     end
     
-    test "subscribed_to_mailer? should return true when subscription_strategy is opt_out" do
-      Unsubscribe.subscription_strategy = :opt_out
-
+    test "subscribed_to_mailer? should return correct value" do
       assert @user.subscribed_to_mailer? "MarketingMailer"
 
       @user.mailer_subscriptions.create!(
@@ -21,18 +19,6 @@ module Unsubscribe
 
       assert_not @user.subscribed_to_mailer? "MarketingMailer"
     end
-
-    test "subscribed_to_mailer? should return true when subscription_strategy is opt_in" do
-      Unsubscribe.subscription_strategy = :opt_in
-
-      assert_not @user.subscribed_to_mailer? "MarketingMailer"
-
-      @user.mailer_subscriptions.create!(
-        mailer: "MarketingMailer",
-        subscribed: true
-      )
-
-      assert @user.subscribed_to_mailer? "MarketingMailer"
-    end    
+   
   end
 end

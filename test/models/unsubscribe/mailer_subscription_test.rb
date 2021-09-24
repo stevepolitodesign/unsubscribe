@@ -59,13 +59,25 @@ module Unsubscribe
     end
 
     test "should return action" do
+      @mailer_subscription.subscribed = nil
+      assert_equal "Unsubscribe from", @mailer_subscription.action
+
+      @mailer_subscription.subscribed = false
       assert_equal "Subscribe to", @mailer_subscription.action
+
       @mailer_subscription.subscribed = true
       assert_equal "Unsubscribe from", @mailer_subscription.action
     end
 
     test "should return call_to_action" do
+      @mailer_subscription.subscribed = nil
+      assert_equal "Unsubscribe from Marketing Emails", @mailer_subscription.call_to_action
+
+      @mailer_subscription.subscribed = false
       assert_equal "Subscribe to Marketing Emails", @mailer_subscription.call_to_action
+
+      @mailer_subscription.subscribed = true
+      assert_equal "Unsubscribe from Marketing Emails", @mailer_subscription.call_to_action
     end
 
   end

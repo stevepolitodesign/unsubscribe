@@ -3,11 +3,6 @@ require "unsubscribe/engine"
 
 module Unsubscribe
 
-  # TODO: Remove this
-  SETTINGS = OpenStruct.new(
-    subscription_strategy: :opt_out,
-  ).freeze
-
   # TODO: Make this a separate file
   class Error < StandardError
   end
@@ -59,20 +54,11 @@ module Unsubscribe
     end
 
     def subscribed_to_mailer?(mailer)
-      case Unsubscribe.subscription_strategy
-      when :opt_in
-        Unsubscribe::MailerSubscription.find_by(
-          owner: self,
-          mailer: mailer,
-          subscribed: true
-        ).present?
-      else
-        Unsubscribe::MailerSubscription.find_by(
-          owner: self,
-          mailer: mailer,
-          subscribed: false
-        ).nil?
-      end
+      Unsubscribe::MailerSubscription.find_by(
+        owner: self,
+        mailer: mailer,
+        subscribed: false
+      ).nil?
     end
 
     def to_sgid_for_mailer_subscription
@@ -80,11 +66,4 @@ module Unsubscribe
     end
   end
 
-  mattr_accessor :subscription_strategy
-  # TODO: Use :opt_out
-  @@subscription_strategy = SETTINGS.subscription_strategy
-
-  def self.setup
-    yield self
-  end
 end
