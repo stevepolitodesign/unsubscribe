@@ -14,8 +14,7 @@ end
 
 2. Add `include Unsubscribe::Mailer` to a `Mailer`.
 3. Call `unsubscribe_settings` and optionally set a `name` and `description`.
-4. Set `mail to:` to `@recipient.email`
-  - The `@recipient` is an instance of whatever Class `include Unsubscribe::Owner` was added to.
+4. Set `mail to:` to `@recipient.email`. The `@recipient` is an instance of whatever Class `include Unsubscribe::Owner` was added to.
 
 ```ruby
 class MarketingMailer < ApplicationMailer  
@@ -37,21 +36,10 @@ end
   ).promotion.deliver_now
 ```
  
-6. Add the unsubscribe link to the `Mailer`
+6. Add the `@unsubscribe_url` link to the `Mailer`.
 
 ```html+erb
 <%= link_to "Unsubscribe", @unsubscribe_url %>
-```
-
-## Configuration
-
-By default an `Owner` will be subscribed to all Mailers. If you wish to make it so an `Owner` needs to opt-in to receive a Mailer, set `Unsubscribe.subscription_strategy` to `:opt_in`. The default value is `:opt_out`.
-
-```ruby
-# config/initializers/unsubscribe.rb
-Unsubscribe.setup do |config|
-  config.subscription_strategy = :opt_in
-end
 ```
 
 ## Installation
