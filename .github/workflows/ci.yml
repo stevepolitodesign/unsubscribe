@@ -16,7 +16,7 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@57d46d78b7d959dc4a248024a29bb17d4e357e5c
         with:
-          ruby-version: 2.7.0
+          ruby-version: 2.7
       - name: Install dependencies
         run: bundle install
       - name: Create database
