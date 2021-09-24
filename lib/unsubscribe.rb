@@ -3,7 +3,7 @@ require "unsubscribe/engine"
 
 module Unsubscribe
 
-  # TODO: Make this a separate file
+  # TODO: Remove this
   SETTINGS = OpenStruct.new(
     subscription_strategy: :opt_out,
   ).freeze
@@ -25,6 +25,8 @@ module Unsubscribe
     class_methods do
       def unsubscribe_settings(name: nil, description: nil)
         cattr_accessor :unsubscribe_settings, default: { enabled: true, name: name, description: description }
+        # TODO Remove enabled: true from above and replace with:
+        # cattr_accessor :enabled, default: true
       end
     end
 
@@ -79,6 +81,7 @@ module Unsubscribe
   end
 
   mattr_accessor :subscription_strategy
+  # TODO: Use :opt_out
   @@subscription_strategy = SETTINGS.subscription_strategy
 
   def self.setup
