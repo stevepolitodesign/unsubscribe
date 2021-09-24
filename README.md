@@ -4,13 +4,18 @@ Automatically unsubscribe from emails in Rails.
 
 ## Usage
 
+1. Add `include Unsubscribe::Owner` to a `Model`. The `Model` must have an `email` column.
+
 ```ruby
 class User < ApplicationRecord
   include Unsubscribe::Owner
 end
 ```
 
-1. Add `include Unsubscribe::Owner` to a `Model`. The `Model` must have an `email` column.
+2. Add `include Unsubscribe::Mailer` to a `Mailer`.
+3. Call `unsubscribe_settings` and optionally set a `name` and `description`.
+4. Set `mail to:` to `@recipient.email`
+  - The `@recipient` is an instance of whatever Class `include Unsubscribe::Owner` was added to.
 
 ```ruby
 class MarketingMailer < ApplicationMailer  
@@ -23,11 +28,20 @@ class MarketingMailer < ApplicationMailer
   end  
 end
 ```
+
+5. Call the `Mailer` with a `recipient` parameter.
+
+```ruby
+  MarketingMailer.with(
+    recipient: User.first
+  ).promotion.deliver_now
+```
  
-2. Add `include Unsubscribe::Mailer` to a `Mailer`.
-3. Call `unsubscribe_settings` and optionally set a `name` and `description`.
-4. Set `mail to:` to `@recipient.email`
-  - The `@recipient` is an instance of whatever Class `include Unsubscribe::Owner` was added to.
+6. Add the unsubscribe link to the `Mailer`
+
+```html+erb
+<%= link_to "Unsubscribe", @unsubscribe_url %>
+```
 
 ## Configuration
 
