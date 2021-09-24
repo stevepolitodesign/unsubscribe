@@ -37,7 +37,7 @@ module Unsubscribe
     def set_recipient
       @recipient = params[:recipient]
     end
-    
+
     def set_unsubscribe_url
       @unsubscribe_url = unsubscribe.mailer_subscription_url(@recipient.to_sgid_for_mailer_subscription, mailer: self.class)
     end  
