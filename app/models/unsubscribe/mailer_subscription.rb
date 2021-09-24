@@ -9,7 +9,12 @@ module Unsubscribe
 
     # TODO: Add i18n
     def action
-      subscribed? ? "Unsubscribe from" : "Subscribe to"
+      case subscribed
+      when nil
+        "Unsubscribe from"
+      else
+        subscribed? ? "Unsubscribe from" : "Subscribe to"
+      end
     end
 
     def call_to_action
