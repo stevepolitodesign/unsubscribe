@@ -1,4 +1,4 @@
-class CreateUnsubscribeMailerSubscriptions < ActiveRecord::Migration[6.1]
+class CreateUnsubscribeMailerSubscriptions < ActiveRecord::Migration[6.0]
   def change
     create_table :unsubscribe_mailer_subscriptions do |t|
       # Needs to be polymorphic to be flexible. Owner may not always be a User.

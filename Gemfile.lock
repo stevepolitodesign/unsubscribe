@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     unsubscribe (0.1.0)
-      rails (~> 6.1.4, >= 6.1.4.1)
+      rails (>= 6.0.0)
 
 GEM
   remote: https://rubygems.org/
@@ -79,7 +79,7 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.7.1)
       mini_mime (>= 0.1.1)
-    marcel (1.0.1)
+    marcel (1.0.2)
     method_source (1.0.0)
     mini_mime (1.1.1)
     minitest (5.14.4)
@@ -135,10 +135,11 @@ GEM
 
 PLATFORMS
   ruby
+  x86_64-darwin-19
 
 DEPENDENCIES
   sqlite3
   unsubscribe!
 
 BUNDLED WITH
-   2.1.4
+   2.2.26
