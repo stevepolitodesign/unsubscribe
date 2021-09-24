@@ -11,9 +11,9 @@ module Unsubscribe
     def action
       case subscribed
       when nil
-        "Unsubscribe from"
+        I18n.t("unsubscribe.action.unsubscribe")
       else
-        subscribed? ? "Unsubscribe from" : "Subscribe to"
+        subscribed? ? I18n.t("unsubscribe.action.unsubscribe") : I18n.t("unsubscribe.action.subscribe")
       end
     end
 
