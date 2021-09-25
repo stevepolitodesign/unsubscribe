@@ -2,6 +2,8 @@
 
 Automatically unsubscribe from emails in Rails.
 
+![Demo](./docs/demo.gif)
+
 ## Usage
 
 1. Run `rails unsubscribe:install:migrations`.
@@ -46,7 +48,18 @@ end
 
 9. Optionally run `rails g unsubscribe:views` if you want to modify the existing templates.
 
-## Configuration
+## I18n
+
+The language used for `Unsubscribe::MailerSubscription#action` can be translated.
+
+```yml
+# config/locales/en.yml
+en:
+  unsubscribe:
+    action:
+      subscribe: "Subscribe to"
+      unsubscribe: "Unsubscribe from"
+```
 
 ## Installation
 
