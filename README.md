@@ -1,10 +1,14 @@
 # Unsubscribe
 
-Automatically unsubscribe from emails in Rails. 
+Automatically unsubscribe from emails in Rails.
+
+![Demo](./docs/demo.gif)
 
 ## Usage
 
-1. Add `include Unsubscribe::Owner` to a `Model`. The `Model` must have an `email` column.
+1. Run `rails unsubscribe:install:migrations`.
+2. Run `rails db:migrate`.
+3. Add `include Unsubscribe::Owner` to a `Model`. The `Model` must have an `email` column.
 
 ```ruby
 class User < ApplicationRecord
@@ -12,9 +16,9 @@ class User < ApplicationRecord
 end
 ```
 
-2. Add `include Unsubscribe::Mailer` to a `Mailer`.
-3. Call `unsubscribe_settings` and optionally set a `name` and `description`.
-4. Set `mail to:` to `@recipient.email`. The `@recipient` is an instance of whatever Class `include Unsubscribe::Owner` was added to.
+4. Add `include Unsubscribe::Mailer` to a `Mailer`.
+5. Call `unsubscribe_settings` and optionally set a `name` and `description`.
+6. Set `mail to:` to `@recipient.email`. The `@recipient` is an instance of whatever Class `include Unsubscribe::Owner` was added to.
 
 ```ruby
 class MarketingMailer < ApplicationMailer  
@@ -28,7 +32,7 @@ class MarketingMailer < ApplicationMailer
 end
 ```
 
-5. Call the `Mailer` with a `recipient` parameter.
+7. Call the `Mailer` with a `recipient` parameter.
 
 ```ruby
   MarketingMailer.with(
@@ -36,13 +40,26 @@ end
   ).promotion.deliver_now
 ```
  
-6. Add the `@unsubscribe_url` link to the `Mailer`.
+8. Add the `@unsubscribe_url` link to the `Mailer`.
 
 ```html+erb
 <%= link_to "Unsubscribe", @unsubscribe_url %>
 ```
 
-7. Optionally run `rails g unsubscribe:views` if you want to modify the existing templates.
+9. Optionally run `rails g unsubscribe:views` if you want to modify the existing templates.
+
+## I18n
+
+The language used for `Unsubscribe::MailerSubscription#action` can be translated.
+
+```yml
+# config/locales/en.yml
+en:
+  unsubscribe:
+    action:
+      subscribe: "Subscribe to"
+      unsubscribe: "Unsubscribe from"
+```
 
 ## Installation
 
