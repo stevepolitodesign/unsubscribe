@@ -27,7 +27,7 @@ module Unsubscribe
     end
 
     def set_unsubscribe_url
-      @unsubscribe_url = unsubscribe.mailer_subscription_url(@recipient.to_sgid_for_mailer_subscription, mailer: self.class)
+      @unsubscribe_url = Unsubscribe::Engine.routes.url_helpers.mailer_subscription_url(@recipient.to_sgid_for_mailer_subscription, mailer: self.class)
     end
 
     def should_unsubscribe?
