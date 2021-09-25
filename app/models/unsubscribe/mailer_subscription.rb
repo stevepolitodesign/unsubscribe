@@ -7,7 +7,6 @@ module Unsubscribe
     validates :owner_id, uniqueness: { scope: [:mailer, :owner_type] }
     validate :mailer_should_exist
 
-    # TODO: Add i18n
     def action
       case subscribed
       when nil
@@ -41,7 +40,7 @@ module Unsubscribe
 
     def mailer_should_exist
       begin
-        errors.add(:mailer, "is not a enbled") unless mailer.constantize.unsubscribe_settings[:enabled]
+        errors.add(:mailer, "is not a enbled") unless mailer.constantize.enabled
       rescue NameError
         errors.add(:mailer, "is not a Mailer")
       end
