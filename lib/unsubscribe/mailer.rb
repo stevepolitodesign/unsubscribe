@@ -11,9 +11,8 @@ module Unsubscribe
   
     class_methods do
       def unsubscribe_settings(name: nil, description: nil)
-        cattr_accessor :unsubscribe_settings, default: { enabled: true, name: name, description: description }
-        # TODO Remove enabled: true from above and replace with:
-        # cattr_accessor :enabled, default: true
+        cattr_accessor :unsubscribe_settings, default: { name: name, description: description }
+        cattr_accessor :enabled, default: true
       end
     end
   

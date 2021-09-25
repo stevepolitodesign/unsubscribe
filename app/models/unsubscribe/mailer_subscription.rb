@@ -41,7 +41,7 @@ module Unsubscribe
 
     def mailer_should_exist
       begin
-        errors.add(:mailer, "is not a enbled") unless mailer.constantize.unsubscribe_settings[:enabled]
+        errors.add(:mailer, "is not a enbled") unless mailer.constantize.enabled
       rescue NameError
         errors.add(:mailer, "is not a Mailer")
       end
