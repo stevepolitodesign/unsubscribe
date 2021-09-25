@@ -15,7 +15,7 @@ module Unsubscribe
     end
 
     def to_sgid_for_mailer_subscription
-      self.to_sgid(for: :mailer_subscription)
+      to_sgid(for: :mailer_subscription)
     end
   end
 end

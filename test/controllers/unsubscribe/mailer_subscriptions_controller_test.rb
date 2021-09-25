@@ -15,10 +15,10 @@ module Unsubscribe
 
     test "should create" do
       assert_difference("@user.mailer_subscriptions.count", 1) do
-        post mailer_subscriptions_path, params: 
-          { 
+        post mailer_subscriptions_path, params:
+          {
             id: @user.to_sgid_for_mailer_subscription,
-            mailer_subscription: { 
+            mailer_subscription: {
               owner_id: @user.id,
               owner_type: "User",
               subscribed: false,
@@ -26,7 +26,7 @@ module Unsubscribe
             }
           }
       end
-    end   
+    end
 
     test "should update" do
       @mailer_subscription = unsubscribe_mailer_subscriptions(:one)
@@ -37,7 +37,7 @@ module Unsubscribe
         mailer_subscription_id: @mailer_subscription.id
       }
 
-      assert_not_equal original_subsribed_value, @mailer_subscription.reload.subscribed 
+      assert_not_equal original_subsribed_value, @mailer_subscription.reload.subscribed
     end
 
     test "should handle bad token" do
@@ -51,10 +51,10 @@ module Unsubscribe
       @another_user = users(:one)
 
       assert_no_difference("Unsubscribe::MailerSubscription.count", 1) do
-        post mailer_subscriptions_path, params: 
-          { 
+        post mailer_subscriptions_path, params:
+          {
             id: @user.to_sgid_for_mailer_subscription,
-            mailer_subscription: { 
+            mailer_subscription: {
               owner_id: @another_user.id,
               owner_type: "User",
               subscribed: false,
@@ -73,8 +73,7 @@ module Unsubscribe
         mailer_subscription_id: @mailer_subscription_from_another_owner.id
       }
 
-      assert_equal original_subsribed_value, @mailer_subscription_from_another_owner.reload.subscribed 
+      assert_equal original_subsribed_value, @mailer_subscription_from_another_owner.reload.subscribed
     end
-    
   end
 end

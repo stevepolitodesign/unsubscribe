@@ -14,7 +14,7 @@ module Unsubscribe
       if @owner != @mailer.owner
         redirect_to(
           mailer_subscription_path(@owner.to_sgid_for_mailer_subscription, mailer: params[:mailer_subscription][:mailer]),
-          alert: "You are not authorized to perform this action." 
+          alert: "You are not authorized to perform this action."
         ) and return
       end
 
@@ -37,7 +37,7 @@ module Unsubscribe
       if @owner != @mailer.owner
         redirect_to(
           mailer_subscription_path(@owner.to_sgid_for_mailer_subscription, mailer: @mailer.mailer),
-          alert: "You are not authorized to perform this action." 
+          alert: "You are not authorized to perform this action."
         ) and return
       end
 
@@ -62,6 +62,5 @@ module Unsubscribe
     def mailer_subscription_params
       params.require(:mailer_subscription).permit(:owner_id, :owner_type, :subscribed, :mailer)
     end
-
   end
 end
