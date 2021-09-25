@@ -19,7 +19,7 @@ module Unsubscribe
     test "mailer should exist" do
       @mailer_subscription.mailer = "SomeFakeMailer"
       assert_not @mailer_subscription.valid?
-    end    
+    end
 
     test "should be unique across owner and mailer" do
       @mailer_subscription.save!
@@ -44,11 +44,11 @@ module Unsubscribe
     end
 
     test "should raise exception if mailer does not respond to unsubscribe_settings" do
-      @mailer_subscription.mailer = "SecurityMailer"  
+      @mailer_subscription.mailer = "SecurityMailer"
       assert_raises(Unsubscribe::Error) do
         @mailer_subscription.details
       end
-    end    
+    end
 
     test "should return name" do
       assert_equal "Marketing Emails", @mailer_subscription.name
@@ -79,6 +79,5 @@ module Unsubscribe
       @mailer_subscription.subscribed = true
       assert_equal "Unsubscribe from Marketing Emails", @mailer_subscription.call_to_action
     end
-
   end
 end

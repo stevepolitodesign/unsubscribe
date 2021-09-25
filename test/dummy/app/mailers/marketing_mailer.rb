@@ -1,4 +1,4 @@
-class MarketingMailer < ApplicationMailer  
+class MarketingMailer < ApplicationMailer
   include Unsubscribe::Mailer
 
   unsubscribe_settings name: "Marketing Emails", description: "Updates on promotions and sales."
