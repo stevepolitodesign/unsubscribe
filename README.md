@@ -1,10 +1,10 @@
-# Unsubscribe
+# 📭 Unsubscribe
 
 Automatically unsubscribe from emails in Rails.
 
 ![Demo](./docs/demo.gif)
 
-## Installation
+## 🚀 Installation
 
 Add this line to your application's Gemfile:
 
@@ -30,7 +30,7 @@ rails unsubscribe:install:migrations
 rails db:migrate
 ```
 
-## Usage
+## 📚 Usage
 
 ### Unsubscribe::Owner
 
@@ -102,11 +102,11 @@ Unsubscribe::MailerSubscription.first.name
 <%= link_to "Unsubscribe", @unsubscribe_url %>
 ```
 
-## Customize Templates
+## ⚙️ Customize Templates
 
 Run `rails g unsubscribe:views` if you want to modify the existing templates.
 
-## I18n
+## 🌐 I18n
 
 The language used for `Unsubscribe::MailerSubscription#action` can be translated.
 
@@ -119,7 +119,7 @@ en:
       unsubscribe: "Unsubscribe from"
 ```
 
-## Contributing
+## 🙏 Contributing
 
 If you'd like to open a PR please make sure the following things pass:
 
@@ -128,6 +128,6 @@ bin/rails test
 bundle exec standardrb
 ```
 
-## License
+## 📜 License
 
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
