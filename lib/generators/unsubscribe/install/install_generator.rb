@@ -13,7 +13,7 @@ module Unsubscribe
         end
       end
 
-      def mount_routes
+      def mount_engine
         inject_into_file "config/routes.rb", after: "Rails.application.routes.draw do" do
           <<~EOF
             \n\tmount Unsubscribe::Engine => "/unsubscribe"
