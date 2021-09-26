@@ -16,7 +16,7 @@ class User < ApplicationRecord
 end
 ```
 
-### Available Methods
+#### Available Methods
 
 ```ruby
 User.first.subscribed_to_mailer? "MarketingMailer"
@@ -52,7 +52,7 @@ end
   ).promotion.deliver_now
 ```
 
-### Available Methods
+#### Available Methods
 
 ```ruby
 Unsubscribe::MailerSubscription.first.action
