@@ -6,18 +6,9 @@ Automatically unsubscribe from emails in Rails.
 
 ## Usage
 
-1. Run `rails g unsubscribe:install`.
-2. Run `rails unsubscribe:install:migrations`.
-3. Run `rails db:migrate`.
-4. Add `mount Unsubscribe::Engine => "/unsubscribe"` to `config/routes.rb`.
+### Unsubscribe::Owner
 
-```ruby
-Rails.application.routes.draw do
-  mount Unsubscribe::Engine => "/unsubscribe"
-end
-```
-
-5. Add `include Unsubscribe::Owner` to a `Model`. The `Model` must have an `email` column.
+- Add `include Unsubscribe::Owner` to a `Model`. The `Model` must have an `email` column.
 
 ```ruby
 class User < ApplicationRecord
@@ -25,9 +16,21 @@ class User < ApplicationRecord
 end
 ```
 
-6. Add `include Unsubscribe::Mailer` to a `Mailer`.
-7. Call `unsubscribe_settings` and optionally set a `name` and `description`.
-8. Set `mail to:` to `@recipient.email`. The `@recipient` is an instance of whatever Class `include Unsubscribe::Owner` was added to.
+### Available Methods
+
+```ruby
+User.first.subscribed_to_mailer? "MarketingMailer"
+# => true/false
+
+User.first.to_sgid_for_mailer_subscription
+# => #<SignedGlobalID:123 ...>
+```
+
+### Unsubscribe::Mailer
+
+- Add `include Unsubscribe::Mailer` to a `Mailer`.
+- Optionally call `unsubscribe_settings` to set a `name` and `description`. This will be used in the unsubscribe page.
+- Set `mail to:` to `@recipient.email`. The `@recipient` is an instance of whatever Class `include Unsubscribe::Owner` was added to.
 
 ```ruby
 class MarketingMailer < ApplicationMailer  
@@ -41,13 +44,7 @@ class MarketingMailer < ApplicationMailer
 end
 ```
 
-9. Add the `@unsubscribe_url` link to the `Mailer`.
-
-```html+erb
-<%= link_to "Unsubscribe", @unsubscribe_url %>
-```
-
-10. Call the `Mailer` with a `recipient` parameter.
+- Call the `Mailer` with a `recipient` parameter.
 
 ```ruby
   MarketingMailer.with(
@@ -55,7 +52,33 @@ end
   ).promotion.deliver_now
 ```
 
-9. Optionally run `rails g unsubscribe:views` if you want to modify the existing templates.
+### Available Methods
+
+```ruby
+Unsubscribe::MailerSubscription.first.action
+# => "Unsubscribe from"/"Subscribe to"
+
+Unsubscribe::MailerSubscription.first.call_to_action
+# => "Unsubscribe from Marketing Emails"/"Subscribe to Marketing Emails"
+
+Unsubscribe::MailerSubscription.first.description
+# => "Updates on promotions and sales."
+
+Unsubscribe::MailerSubscription.first.name
+# => "Marketing Emails"
+```
+
+### Unsubscribe Link
+
+- Add the `@unsubscribe_url` link to the `Mailer`.
+
+```html+erb
+<%= link_to "Unsubscribe", @unsubscribe_url %>
+```
+
+## Customize Templates
+
+Run `rails g unsubscribe:views` if you want to modify the existing templates.
 
 ## I18n
 
@@ -86,6 +109,14 @@ $ bundle
 Or install it yourself as:
 ```bash
 $ gem install unsubscribe
+```
+
+Then run the installation commands:
+
+```bash
+rails g unsubscribe:install
+rails unsubscribe:install:migrations
+rails db:migrate
 ```
 
 ## Contributing
