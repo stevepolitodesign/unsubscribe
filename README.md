@@ -4,6 +4,32 @@ Automatically unsubscribe from emails in Rails.
 
 ![Demo](./docs/demo.gif)
 
+## Installation
+
+Add this line to your application's Gemfile:
+
+```ruby
+gem 'unsubscribe'
+```
+
+And then execute:
+```bash
+$ bundle
+```
+
+Or install it yourself as:
+```bash
+$ gem install unsubscribe
+```
+
+Then run the installation commands:
+
+```bash
+rails g unsubscribe:install
+rails unsubscribe:install:migrations
+rails db:migrate
+```
+
 ## Usage
 
 ### Unsubscribe::Owner
@@ -93,35 +119,14 @@ en:
       unsubscribe: "Unsubscribe from"
 ```
 
-## Installation
-
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'unsubscribe'
-```
-
-And then execute:
-```bash
-$ bundle
-```
-
-Or install it yourself as:
-```bash
-$ gem install unsubscribe
-```
-
-Then run the installation commands:
-
-```bash
-rails g unsubscribe:install
-rails unsubscribe:install:migrations
-rails db:migrate
-```
-
 ## Contributing
 
-Contribution directions go here.
+If you'd like to open a PR please make sure the following things pass:
+
+```ruby
+bin/rails test
+bundle exec standardrb
+```
 
 ## License
 
