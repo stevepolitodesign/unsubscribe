@@ -45,6 +45,9 @@ end
 #### Available Methods
 
 ```ruby
+User.first.mailer_subscriptions
+# => #<ActiveRecord::Associations::CollectionProxy [#<Unsubscribe::MailerSubscription>, #<Unsubscribe::MailerSubscription>] >
+
 User.first.subscribed_to_mailer? "MarketingMailer"
 # => true/false
 
