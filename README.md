@@ -8,7 +8,15 @@ Automatically unsubscribe from emails in Rails.
 
 1. Run `rails unsubscribe:install:migrations`.
 2. Run `rails db:migrate`.
-3. Add `include Unsubscribe::Owner` to a `Model`. The `Model` must have an `email` column.
+3. Add `mount Unsubscribe::Engine => "/unsubscribe"` to `config/routes.rb`
+
+```ruby
+Rails.application.routes.draw do
+  mount Unsubscribe::Engine => "/unsubscribe"
+end
+```
+
+4. Add `include Unsubscribe::Owner` to a `Model`. The `Model` must have an `email` column.
 
 ```ruby
 class User < ApplicationRecord
@@ -16,9 +24,9 @@ class User < ApplicationRecord
 end
 ```
 
-4. Add `include Unsubscribe::Mailer` to a `Mailer`.
-5. Call `unsubscribe_settings` and optionally set a `name` and `description`.
-6. Set `mail to:` to `@recipient.email`. The `@recipient` is an instance of whatever Class `include Unsubscribe::Owner` was added to.
+5. Add `include Unsubscribe::Mailer` to a `Mailer`.
+6. Call `unsubscribe_settings` and optionally set a `name` and `description`.
+7. Set `mail to:` to `@recipient.email`. The `@recipient` is an instance of whatever Class `include Unsubscribe::Owner` was added to.
 
 ```ruby
 class MarketingMailer < ApplicationMailer  
@@ -32,18 +40,18 @@ class MarketingMailer < ApplicationMailer
 end
 ```
 
-7. Call the `Mailer` with a `recipient` parameter.
+8. Add the `@unsubscribe_url` link to the `Mailer`.
+
+```html+erb
+<%= link_to "Unsubscribe", @unsubscribe_url %>
+```
+
+9. Call the `Mailer` with a `recipient` parameter.
 
 ```ruby
   MarketingMailer.with(
     recipient: User.first
   ).promotion.deliver_now
-```
- 
-8. Add the `@unsubscribe_url` link to the `Mailer`.
-
-```html+erb
-<%= link_to "Unsubscribe", @unsubscribe_url %>
 ```
 
 9. Optionally run `rails g unsubscribe:views` if you want to modify the existing templates.
