@@ -8,7 +8,15 @@ module Unsubscribe
       def link_manifest_js
         inject_into_file "app/assets/config/manifest.js" do
           <<~EOF
-            \n//= link unsubscribe_manifest.js\n
+            \n//= link unsubscribe_manifest.js
+          EOF
+        end
+      end
+
+      def mount_routes
+        inject_into_file "config/routes.rb", after: "Rails.application.routes.draw do" do
+          <<~EOF
+            \n\tmount Unsubscribe::Engine => "/unsubscribe"
           EOF
         end
       end
